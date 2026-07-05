@@ -9,13 +9,9 @@ app.use(express.json());
 
 app.use('/api', router);
 
-app.get('/', (req, res) => {
-    res.json({ status: 'ok', message: 'Server is running' });
-});
+app.get('/', (req, res) => { res.send('Backend Running'); });
 
-app.use((req, res) => {
-    res.status(404).json({ status: 'error', message: 'Route not found' });
-});
+app.get('/api', (req, res) => { res.send('API Running'); });
 
 app.listen(process.env.PORT, () => {
     console.log(`Server is running on port ${process.env.PORT}`)
