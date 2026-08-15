@@ -60,3 +60,45 @@ exports.deleteTask = async (req, res) => {
         res.status(500).json({ message: 'Error deleting task' });
     }
 }
+
+exports.getHeatmap = async (req, res) => {
+    try{
+        const rows = await taskModel.getHeatmapData(req.user.id);
+        res.json(rows);
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).json({ message: 'Error fetching heatmap data' });
+    }
+}
+
+exports.getStreak = async (req, res) => {
+    try{
+        const streak = await taskModel.getStreak(req.user.id);
+        res.json(streak);
+    }
+    catch(err){
+        res.status(501).json({message: 'Error fetching streak'})
+    }
+}
+    
+
+exports.getAchievements = async (req, res) => {
+    try {
+        const achievements = await taskModel.getAchievements(req.user.id);
+        res.json(achievements);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({message: "Error fetching achievements"});
+    }
+};
+
+exports.getHistoryByDate = async (req, res) => {
+    try{
+        const history = await taskModel.getHistoryByDate(req.user.id, req.params.date);
+        res.json(history);
+    }catch (err){
+        console.error(err);
+        res.status(500).json({message: "Error fetching history"});
+    }
+};
